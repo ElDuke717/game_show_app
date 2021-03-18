@@ -9,21 +9,21 @@ btnReset.addEventListener('click', () => {
     startScreen.style.display = "none";
 });
 
+//const game = new Game();
 
-/*
-//This returns a random phrase from the phrases array, then makes an array from
-//the phrases' letters. 
-const getRandomPhraseAsArray = arr => {
-    let rand = (Math.floor(Math.random(phrases.length)*phrases.length));
-    return phrases[rand].split('');
-}
-*/
-//const phrase = new Phrase('I got blisters on my fingers!');
+// game.phrases.forEach((phrase, index)=> {
+//     console.log(`Phrase ${index} - phrase: ${phrase.phrase}`);
+// });
 
-//console.log(`Phrase - phrase: ${phrase.phrase}`);
+// const logPhrase = (phrase) => {
+//     console.log(`Phrase - phrase: `, phrase.phrase);
+//     };
+//     const game = new Game();
+//     logPhrase(game.getRandomPhrase());
+//     logPhrase(game.getRandomPhrase());
+//     logPhrase(game.getRandomPhrase());
+//     logPhrase(game.getRandomPhrase());
+//     logPhrase(game.getRandomPhrase());
 
 const game = new Game();
-
-game.phrases.forEach((phrase, index)=> {
-    console.log(`Phrase ${index} - phrase: ${game.phrases[index]}`);
-});
+game.getRandomPhrase().addPhraseToDisplay();

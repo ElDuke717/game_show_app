@@ -10,6 +10,5 @@ document.getElementById('btn__reset').addEventListener('click', () => {
     game.startGame();
 });
 
-// game.getRandomPhrase().addPhraseToDisplay();
-// game.startGame();
-// console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);
+// const letterKey = document.querySelectorAll('.key')[0].textContent;
+// console.log(letterKey);

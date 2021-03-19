@@ -179,6 +179,17 @@ button {
   color: #FFF;
 }
 
+.description {
+  color: #FFF;
+  font-size: 2.5em;
+  margin: 50px;
+}
+
+.such-wow {
+  color: yellow;
+  margin-bottom: 100px;
+}
+
 .start {
   background-color: #3a3f58;
 }

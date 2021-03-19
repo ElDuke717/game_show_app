@@ -10,20 +10,19 @@ class Phrase {
     * Display phrase on game board
     */ 
     addPhraseToDisplay() {
-        const getPhrase = game.getRandomPhrase();
-        console.log(getPhrase);
-        const makePhraseAnArray = (str)=> getPhrase.split('');
-        console.log(makePhraseAnArray(getPhrase));
+    /**The random phrase from the game class' activePhrase provided by the getRandomPhrase object obtained from getRandomPhrase is
+     * is split into individual characters and added to an array via the split method */
+        const getPhraseArray = game.activePhrase.phrase.split('');
+        console.log(getPhraseArray);
         const letterList = document.querySelector('#phrase ul');
-        const numberOfListItems = addPhraseAsArray.length;
-    //this loop goes through and adds a list item with a letter for each letter from
-    //the random phrase.    
+        const numberOfListItems = getPhraseArray.length;
+    //this loop adds a list item with a letter for each letter from the random phrase.    
         for (let i = 0; i < numberOfListItems; i++) {
             let listItem = document.createElement('li');
-            listItem.textContent = makePhraseAnArray [i];
+            listItem.textContent = getPhraseArray[i];
             letterList.appendChild(listItem);
-    //This if statement tests whether the character is a letter or space, then adds it
-    //as a classname.      
+    /**This if statement tests whether the character is a letter or space, then adds it
+     * as a classname.  The classname tells the CSS how to render each in the HTML*/      
             if(listItem.textContent !== ' ') {
                 listItem.className = 'letter';
             } else {

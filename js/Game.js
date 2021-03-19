@@ -6,7 +6,7 @@ class Game {
     constructor() {
         this.missed = 0;
         this.phrases = this.createPhrases();
-        this.activePhrase = null;
+        this.activePhrase = this.getRandomPhrase();
     }
     /**
     * Creates phrases for use in game
@@ -21,7 +21,7 @@ class Game {
             new Phrase ("Vanilla JavaScript can do a lot"),
             new Phrase ("Blinded by the light"),
             new Phrase ("GME to the moon"),
-            new Phrase ("Astronaut in the Ocean"),
+            new Phrase ("So long and thanks for all the fish"),
             new Phrase ("Facebook is spying on you"),
             new Phrase ("So much room for activities"),
             ];
@@ -35,4 +35,12 @@ class Game {
         const rand = (Math.floor(Math.random(this.phrases.length)*this.phrases.length));
         return this.phrases[rand];
     };
+    /**
+    * Begins game by selecting a random phrase and displaying it to user
+    */
+    startGame() {
+        
+        document.getElementById("overlay").style.display = "none";
+        
+    }
 }

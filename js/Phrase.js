@@ -2,6 +2,9 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
+const querty = document.getElementById('qwerty');
+const letterLi = document.querySelectorAll('.letter');
+
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
@@ -31,31 +34,27 @@ class Phrase {
         } 
     }
     //}
-    /**Checkletter cross-checks the letters from the keyboard against the letters
+    /**Checkletter listens for the click on the qwerty keyboard and then
+     * cross-checks the letters from the keyboard against the letters
      * in the phrase and adds the class "show" to phrase letters that have had their
      * corresponding keys pressed.
      */
     checkLetter() {
-        const letterKey = document.querySelectorAll('.key');
-        const letterLi = document.querySelectorAll('.letter');
-        const match = null;
-    
-        /**This for loop iterates over the letters of the phrase and checks to if the
-         * corresponding qwerty keyboard letter pressed is in the phrase. */
         
-        for (let i = 0; i < letterLi.length; i++) {
-            const letters = letterLi[i];
-            const keys = letterKey[i].textContent;
-            const letterMatch = letters.textContent.toLowerCase();
-            if (keys === letterMatch) {
-                letters.classList.add('show');
-                match = true;
-            }  
-        }
-    return match;
+        querty.addEventListener('click', e => {
+            if (e.target.tagName === 'BUTTON'){
+                e.target.disabled = true;
+                e.target.classList.add('chosen');
+                console.log(e.target.textContent);
+                if (e.target.className = 'chosen') {
+                    console.log('yay!')
+                }
+            }
+            
+        });
+        
     }
     // showMatchedLetter() {
         
-    // }
+    // }}
 }
-

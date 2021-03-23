@@ -14,7 +14,7 @@ document.getElementById('btn__reset').addEventListener('click', () => {
 // const letterKey = document.querySelectorAll('.key')[0].textContent;
 // console.log(letterKey);
 
-//console.log(document.querySelectorAll('.key'));
+//console.log(document.querySelectorAll('.key')[0].textContent);
 //console.log(document.querySelectorAll('.letter'));
 
 //console.log(querty);

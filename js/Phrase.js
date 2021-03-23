@@ -4,6 +4,7 @@
 
 const querty = document.getElementById('qwerty');
 const letterLi = document.querySelectorAll('.letter');
+let missed = 0;
 
 class Phrase {
     constructor(phrase) {
@@ -37,24 +38,55 @@ class Phrase {
     /**Checkletter listens for the click on the qwerty keyboard and then
      * cross-checks the letters from the keyboard against the letters
      * in the phrase and adds the class "show" to phrase letters that have had their
-     * corresponding keys pressed.
+     * corresponding keys pressed.  It returns a Boolean.
      */
-    checkLetter() {
+    checkLetter(button) {
+        const letterLi = document.querySelectorAll('.letter');
+        console.log(button)
+        let match = null;
+    
+        /**This for loop iterates over the phrase and matches selected letters with
+         * phrase letters.
+         */
+        for (let i = 0; i < letterLi.length; i++) {
+            let letters = letterLi[i];
+            if (button === letters.textContent) {
+                letters.classList.add('show');
+                match = true;
+            }  
+    }
+    return match;
+    }
         
-        querty.addEventListener('click', e => {
-            if (e.target.tagName === 'BUTTON'){
+        //do we need to separate the event listener from the showMatchedLetter?
+    /**showMatchedLetter method has the keyboard listener built into it that listens
+     * for keypresses on the screen qwerty keyboard.  When a key is pressed, the class
+     * chosen is added to the target letter.  It then calls the checkLetter method via
+     * the match variable - the match is then passed to the removeLife method.
+     */
+    showMatchedLetter() {
+        qwerty.addEventListener('click', e => {
+            if (e.target.className === 'key') {
                 e.target.disabled = true;
                 e.target.classList.add('chosen');
+                let match = this.checkLetter(e.target.textContent);
                 console.log(e.target.textContent);
-                if (e.target.className = 'chosen') {
-                    console.log('yay!')
-                }
+                console.log(match);
+                this.removeLife(match);
             }
-            
+          //checkForWin();
+          
         });
-        
     }
-    // showMatchedLetter() {
-        
-    // }}
+    /** removeLife checks for matches.  If a match is made, then no hearts are
+     * lost.  If match is null, returned by the checkLetter method, the 
+     * missed number is incremented and are replaced with another image.
+     */
+    removeLife(match) {
+        if (match === null) {
+            missed++ ;
+            let hearts = document.querySelectorAll('img');
+            hearts[missed - 1].src = 'images/angrypoop.png';
+        }
+    }
 }

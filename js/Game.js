@@ -41,6 +41,7 @@ class Game {
     startGame() {
         document.getElementById("overlay").style.display = "none";
         this.getRandomPhrase().addPhraseToDisplay();
-        this.getRandomPhrase().checkLetter();
+        //showMatchedLetter calls the checkLetter function
+        this.getRandomPhrase().showMatchedLetter();
     }
 }

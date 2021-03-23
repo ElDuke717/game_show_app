@@ -4,6 +4,7 @@
 
 const overlay = document.querySelector('#overlay');
 let gameState;
+const title = document.querySelector('.title');
 
 class Game {
     constructor() {
@@ -27,7 +28,7 @@ class Game {
             new Phrase ("So long and thanks for all the fish"),
             new Phrase ("Facebook is spying on you"),
             new Phrase ("So much room for activities"),
-            new Phrase ("Don't eat too much cheese!"),
+            new Phrase ("Do not eat too much cheese!"),
             ];
             return phrases;
     };
@@ -73,11 +74,18 @@ class Game {
             this.gameOver(gameState);
         }
     }
-    gameOver(gameState) {
+    gameOver() {
         if (gameState === 'win') {
-            console.log('yes!')
+            overlay.style.display = 'flex';
+            overlay.classList.add('win');
+            title.textContent = 'You Win!';
+            document.querySelector('.description').textContent = 'HOORAY!';
         } else {
-            console.log('darn!')
+            overlay.style.display = 'flex';
+            overlay.classList.add('lose');
+            title.textContent = 'You lost 😟'
+            document.querySelector('.such-wow').style.display = 'none';
+            document.querySelector('.description').style.display = 'none';
         }
     }
 

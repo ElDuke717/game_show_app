@@ -72,21 +72,12 @@ class Phrase {
                 let match = this.checkLetter(e.target.textContent);
                 console.log(e.target.textContent);
                 console.log(match);
-                this.removeLife(match);
+                game.removeLife(match);
             }
-          //checkForWin();
+          game.checkForWin();
           
         });
     }
-    /** removeLife checks for matches.  If a match is made, then no hearts are
-     * lost.  If match is null, returned by the checkLetter method, the 
-     * missed number is incremented and are replaced with another image.
-     */
-    removeLife(match) {
-        if (match === null) {
-            missed++ ;
-            let hearts = document.querySelectorAll('img');
-            hearts[missed - 1].src = 'images/angrypoop.png';
-        }
-    }
+    
+    
 }

@@ -2,6 +2,9 @@
  * Project 4 - OOP Game App
  * Game.js */
 
+const overlay = document.querySelector('#overlay');
+let gameState;
+
 class Game {
     constructor() {
         this.missed = 0;
@@ -24,6 +27,7 @@ class Game {
             new Phrase ("So long and thanks for all the fish"),
             new Phrase ("Facebook is spying on you"),
             new Phrase ("So much room for activities"),
+            new Phrase ("Don't eat too much cheese!"),
             ];
             return phrases;
     };
@@ -44,4 +48,38 @@ class Game {
         //showMatchedLetter calls the checkLetter function
         this.getRandomPhrase().showMatchedLetter();
     }
+    /** removeLife checks for matches.  If a match is made, then no hearts are
+     * lost.  If match is null, returned by the checkLetter method (on the phrase
+     * class), the missed number is incremented and are replaced with another image.
+     */
+    removeLife(match) {
+        if (match === null) {
+            missed++ ;
+            let hearts = document.querySelectorAll('img');
+            hearts[missed - 1].src = 'images/angrypoop.png';
+        }
+    }
+    checkForWin() {
+        const letterLi = document.querySelectorAll('.letter');
+        const showLi = document.querySelectorAll('.show');
+
+        if (letterLi.length === showLi.length) {
+            console.log('A Win!');
+            gameState = 'win'
+            this.gameOver(gameState);
+        } else if (missed >= 5) {
+            console.log('A Loss 😢');
+            gameState = 'loss'
+            this.gameOver(gameState);
+        }
+    }
+    gameOver(gameState) {
+        if (gameState === 'win') {
+            console.log('yes!')
+        } else {
+            console.log('darn!')
+        }
+    }
+
+
 }

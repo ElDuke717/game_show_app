@@ -34,17 +34,9 @@ class Game {
             return phrases;
     };
     /**
-    * Selects random phrase from phrases property
-    * @return {Object} Phrase object chosen to be used
-    */
-    getRandomPhrase() {
-        const rand = (Math.floor(Math.random(this.phrases.length)*this.phrases.length));
-        return this.phrases[rand];
-    };
-    /**
     * Begins game by selecting a random phrase and displaying it to user
     */
-    startGame() {
+     startGame() {
         document.getElementById("overlay").style.display = "none";
         this.getRandomPhrase().addPhraseToDisplay();
         //showMatchedLetter calls the checkLetter function
@@ -54,17 +46,21 @@ class Game {
      * lost.  If match is null, returned by the checkLetter method (on the phrase
      * class), the missed number is incremented and are replaced with another image.
      */
-    removeLife(match) {
-        if (match === null) {
-            missed++ ;
-            let hearts = document.querySelectorAll('img');
-            hearts[missed - 1].src = 'images/angrypoop.png';
-        }
+    
+    /**
+    * Selects random phrase from phrases property
+    * @return {Object} Phrase object chosen to be used
+    */
+    getRandomPhrase() {
+        const rand = (Math.floor(Math.random(this.phrases.length)*this.phrases.length));
+        return this.phrases[rand];
+    };
+    handleInteraction() {
+
     }
     checkForWin() {
         const letterLi = document.querySelectorAll('.letter');
         const showLi = document.querySelectorAll('.show');
-
         if (letterLi.length === showLi.length) {
             console.log('A Win!');
             gameState = 'win'
@@ -75,6 +71,13 @@ class Game {
             this.gameOver(gameState);
         }
         return missed;
+    }
+    removeLife(match) {
+        if (match === null) {
+            missed++ ;
+            let hearts = document.querySelectorAll('img');
+            hearts[missed - 1].src = 'images/angrypoop.png';
+        }
     }
     gameOver() {
         if (gameState === 'win') {

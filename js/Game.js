@@ -5,6 +5,7 @@
 const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
+//const btnReplay = document.createElement('a');
 
 class Game {
     constructor() {
@@ -28,7 +29,7 @@ class Game {
             new Phrase ("So long and thanks for all the fish"),
             new Phrase ("Facebook is spying on you"),
             new Phrase ("So much room for activities"),
-            new Phrase ("Do not eat too much cheese!"),
+            new Phrase ("Do not eat too much cheese"),
             ];
             return phrases;
     };
@@ -73,19 +74,29 @@ class Game {
             gameState = 'loss'
             this.gameOver(gameState);
         }
+        return missed;
     }
     gameOver() {
         if (gameState === 'win') {
             overlay.style.display = 'flex';
             overlay.classList.add('win');
             title.textContent = 'You Win!';
-            document.querySelector('.description').textContent = 'HOORAY!';
+            document.querySelector('.description').innerHTML = `Nice job!`;
+            btnReset.textContent = 'Play Again?'
+            btnReset.addEventListener ('click', () => {
+                document.location.reload(true);
+            });
         } else {
             overlay.style.display = 'flex';
             overlay.classList.add('lose');
             title.textContent = 'You lost 😟'
-            document.querySelector('.such-wow').style.display = 'none';
+            //add way to add larger angrypoop image here.
+            document.querySelector('.such-wow').textContent = 'Try Again?';
             document.querySelector('.description').style.display = 'none';
+            btnReset.textContent = 'Play Again';
+            btnReset.addEventListener ('click', () => {
+                document.location.reload(true);
+            });
         }
     }
 

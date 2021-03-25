@@ -5,6 +5,7 @@
 const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
+//const querty = document.getElementById('qwerty');
 //const btnReplay = document.createElement('a');
 
 class Game {
@@ -12,6 +13,7 @@ class Game {
         this.missed = 0;
         this.phrases = this.createPhrases();
         this.activePhrase = this.getRandomPhrase();
+        //we need to figure out how to start the game out with this being null
     }
     /**
     * Creates phrases for use in game
@@ -40,12 +42,8 @@ class Game {
         document.getElementById("overlay").style.display = "none";
         this.getRandomPhrase().addPhraseToDisplay();
         //showMatchedLetter calls the checkLetter function
-        this.getRandomPhrase().showMatchedLetter();
+        //this.getRandomPhrase().showMatchedLetter();
     }
-    /** removeLife checks for matches.  If a match is made, then no hearts are
-     * lost.  If match is null, returned by the checkLetter method (on the phrase
-     * class), the missed number is incremented and are replaced with another image.
-     */
     
     /**
     * Selects random phrase from phrases property
@@ -56,7 +54,13 @@ class Game {
         return this.phrases[rand];
     };
     handleInteraction() {
-
+        // qwerty.addEventListener('click', e => {
+        //         if (e.target.className === 'key') {
+        //         e.target.disabled = true;
+        //     }
+        //     this.getRandomPhrase.showMatchedLetter();
+            
+        // });
     }
     checkForWin() {
         const letterLi = document.querySelectorAll('.letter');
@@ -72,6 +76,11 @@ class Game {
         }
         return missed;
     }
+    /** removeLife checks for matches.  If a match is made, then no hearts are
+     * lost.  If match is null, returned by the checkLetter method (on the phrase
+     * class), the missed number is incremented and are replaced with another image.
+     */
+    
     removeLife(match) {
         if (match === null) {
             missed++ ;

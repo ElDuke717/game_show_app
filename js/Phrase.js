@@ -2,7 +2,7 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
-const querty = document.getElementById('qwerty');
+//const querty = document.getElementById('qwerty');
 const letterLi = document.querySelectorAll('.letter');
 let missed = 0;
 
@@ -58,26 +58,33 @@ class Phrase {
     return match;
     }
         
-        //do we need to separate the event listener from the showMatchedLetter?
     /**showMatchedLetter method has the keyboard listener built into it that listens
      * for keypresses on the screen qwerty keyboard.  When a key is pressed, the class
      * chosen is added to the target letter.  It then calls the checkLetter method via
      * the match variable - the match is then passed to the removeLife method.
      */
     showMatchedLetter() {
-        qwerty.addEventListener('click', e => {
-            if (e.target.className === 'key') {
-                e.target.disabled = true;
+        //if checkedLetter = true, e.target.classList.add('chosen')
+        //if checkedLetter = false, e.target.classList.add('wrong')
+            // if (e.target.className === 'key') {
+            //     e.target.disabled = true;
+            if (this.checkLetter()) {
                 e.target.classList.add('chosen');
+            } 
+            if (this.checkLetter())  {
+                e.target.classList.add('wrong'); 
+            } 
+            
                 let match = this.checkLetter(e.target.textContent);
-                console.log(e.target.textContent);
+                //console.log(e.target.textContent);
                 console.log(match);
                 game.removeLife(match);
+                game.checkForWin();
             }
-          game.checkForWin();
           
-        });
-    }
+        
+        
+    
     
     
 }

@@ -2,8 +2,7 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
-//const querty = document.getElementById('qwerty');
-const letterLi = document.querySelectorAll('.letter');
+
 let missed = 0;
 
 class Phrase {
@@ -13,6 +12,7 @@ class Phrase {
     /**
     * Display phrase on game board
     */ 
+
     addPhraseToDisplay() {
     /**The random phrase from the game class' activePhrase provided by the getRandomPhrase object obtained from getRandomPhrase is
      * is split into individual characters and added to an array via the split method */
@@ -41,21 +41,14 @@ class Phrase {
      * corresponding keys pressed.  It returns a Boolean.
      */
     checkLetter(button) {
-        const letterLi = document.querySelectorAll('.letter');
-        console.log(button)
-        let match = null;
-    
-        /**This for loop iterates over the phrase and matches selected letters with
-         * phrase letters.
-         */
-        for (let i = 0; i < letterLi.length; i++) {
-            let letters = letterLi[i];
-            if (button === letters.textContent) {
-                letters.classList.add('show');
-                match = true;
-            }  
-    }
-    return match;
+        const getPhraseArray = game.activePhrase.phrase.split('');
+        
+        if (!getPhraseArray.includes(button.textContent)) {
+            button.classList.add('wrong');
+            button.classList.remove('chosen');
+        } else {
+            this.showMatchedLetter(button);
+        }
     }
         
     /**showMatchedLetter method has the keyboard listener built into it that listens
@@ -63,24 +56,20 @@ class Phrase {
      * chosen is added to the target letter.  It then calls the checkLetter method via
      * the match variable - the match is then passed to the removeLife method.
      */
-    showMatchedLetter() {
-        //if checkedLetter = true, e.target.classList.add('chosen')
-        //if checkedLetter = false, e.target.classList.add('wrong')
-            // if (e.target.className === 'key') {
-            //     e.target.disabled = true;
-            if (this.checkLetter()) {
-                e.target.classList.add('chosen');
-            } 
-            if (this.checkLetter())  {
-                e.target.classList.add('wrong'); 
-            } 
-            
-                let match = this.checkLetter(e.target.textContent);
-                //console.log(e.target.textContent);
-                console.log(match);
-                game.removeLife(match);
-                game.checkForWin();
+    showMatchedLetter(button) {
+        const letterLi = document.querySelectorAll('.letter');
+        console.log(button.textContent);
+        //console.log(letterLi);
+        for (let i = 0; i < letterLi.length; i++) {
+            let letters = letterLi[i];
+            if (button.textContent === letters.textContent ) {
+                letters.classList.add('show');
             }
+        }
+
+        
+        
+    }
           
         
         

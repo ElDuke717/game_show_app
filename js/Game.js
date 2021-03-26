@@ -5,15 +5,14 @@
 const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
-//const querty = document.getElementById('qwerty');
+const querty = document.getElementById('qwerty');
 //const btnReplay = document.createElement('a');
 
 class Game {
     constructor() {
         this.missed = 0;
         this.phrases = this.createPhrases();
-        this.activePhrase = this.getRandomPhrase();
-        //we need to figure out how to start the game out with this being null
+        this.activePhrase = null;
     }
     /**
     * Creates phrases for use in game
@@ -24,10 +23,10 @@ class Game {
             new Phrase ("Perseverence landing on Mars"),
             new Phrase ("Buy some DogeCoin"),
             new Phrase ("Time to get vaccinated"),
-            new Phrase ("Listen in on Clubhouse"),
-            new Phrase ("Vanilla JavaScript can do a lot"),
+            new Phrase ("Poop emoji"),
+            new Phrase ("Vanilla JavaScript"),
             new Phrase ("Blinded by the light"),
-            new Phrase ("GME to the moon"),
+            new Phrase ("Internet memes are fun"),
             new Phrase ("So long and thanks for all the fish"),
             new Phrase ("Facebook is spying on you"),
             new Phrase ("So much room for activities"),
@@ -40,9 +39,10 @@ class Game {
     */
      startGame() {
         document.getElementById("overlay").style.display = "none";
-        this.getRandomPhrase().addPhraseToDisplay();
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
         //showMatchedLetter calls the checkLetter function
-        //this.getRandomPhrase().showMatchedLetter();
+        this.handleInteraction();
     }
     
     /**
@@ -54,13 +54,14 @@ class Game {
         return this.phrases[rand];
     };
     handleInteraction() {
-        // qwerty.addEventListener('click', e => {
-        //         if (e.target.className === 'key') {
-        //         e.target.disabled = true;
-        //     }
-        //     this.getRandomPhrase.showMatchedLetter();
-            
-        // });
+        qwerty.addEventListener('click', e => {
+            if (e.target.className === 'key') {
+                console.log(e.target.textContent);
+                e.target.disabled = true;
+                e.target.classList.add('chosen');
+                this.activePhrase.checkLetter(e.target);
+            }
+        });
     }
     checkForWin() {
         const letterLi = document.querySelectorAll('.letter');

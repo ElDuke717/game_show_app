@@ -46,6 +46,8 @@ class Phrase {
         if (!getPhraseArray.includes(button.textContent)) {
             button.classList.add('wrong');
             button.classList.remove('chosen');
+            missed++
+            console.log(missed);
         } else {
             this.showMatchedLetter(button);
         }

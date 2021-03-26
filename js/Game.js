@@ -6,7 +6,7 @@ const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
 const querty = document.getElementById('qwerty');
-//const btnReplay = document.createElement('a');
+
 
 class Game {
     constructor() {
@@ -20,17 +20,17 @@ class Game {
     */
     createPhrases() {
         const phrases = [
-            new Phrase ("Perseverence landing on Mars"),
+            new Phrase ("Mars landing"),
             new Phrase ("Buy some DogeCoin"),
             new Phrase ("Time to get vaccinated"),
             new Phrase ("Poop emoji"),
             new Phrase ("Vanilla JavaScript"),
             new Phrase ("Blinded by the light"),
-            new Phrase ("Internet memes are fun"),
-            new Phrase ("So long and thanks for all the fish"),
-            new Phrase ("Facebook is spying on you"),
-            new Phrase ("So much room for activities"),
-            new Phrase ("Do not eat too much cheese"),
+            new Phrase ("Internet memes"),
+            new Phrase ("SpaceX rocket launch"),
+            new Phrase ("Clubhouse app"),
+            new Phrase ("Bernies mittens"),
+            new Phrase ("Dolly Parton"),
             ];
             return phrases;
     };
@@ -61,7 +61,10 @@ class Game {
                 e.target.classList.add('chosen');
                 this.activePhrase.checkLetter(e.target);
             }
+            this.removeLife()
+            this.checkForWin()
         });
+        
     }
     checkForWin() {
         const letterLi = document.querySelectorAll('.letter');
@@ -78,15 +81,15 @@ class Game {
         return missed;
     }
     /** removeLife checks for matches.  If a match is made, then no hearts are
-     * lost.  If match is null, returned by the checkLetter method (on the phrase
-     * class), the missed number is incremented and are replaced with another image.
+     * lost.  If missed is greater than or equal to 1, returned by the checkLetter 
+     * method (on the phrase class), the heart image is replaced with another image.
      */
     
-    removeLife(match) {
-        if (match === null) {
-            missed++ ;
-            let hearts = document.querySelectorAll('img');
-            hearts[missed - 1].src = 'images/angrypoop.png';
+    removeLife() {
+        if (missed >= 1) {
+        console.log(missed);
+        let hearts = document.querySelectorAll('img');
+        hearts[missed - 1].src = 'images/angrypoop.png';
         }
     }
     gameOver() {

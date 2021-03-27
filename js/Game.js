@@ -96,8 +96,12 @@ class Game {
         if (gameState === 'win') {
             overlay.style.display = 'flex';
             overlay.classList.add('win');
-            title.textContent = 'You Win!';
-            document.querySelector('.description').innerHTML = `Nice job!`;
+            title.style.visibility = 'hidden';
+            const youWin = `<img src="images/you win2(1).png" alt="you win text" class="you-win">`;
+            title.insertAdjacentHTML('beforebegin', youWin);
+            const happyPoop = `<img src="images/happy_poop.png" alt="happy poop emoji" class="poopy">`;
+            title.insertAdjacentHTML('afterend', happyPoop);
+            document.querySelector('.description').style.display = `none`;
             btnReset.textContent = 'Play Again?'
             btnReset.addEventListener ('click', () => {
                 document.location.reload(true);
@@ -105,11 +109,11 @@ class Game {
         } else {
             overlay.style.display = 'flex';
             overlay.classList.add('lose');
-            title.textContent = 'You lost 😟'
-            //add way to add larger angrypoop image here.
-            document.querySelector('.such-wow').textContent = 'Try Again?';
+            title.textContent = 'You lost'
+            const sadPoop = `<img src="images/sad_poop.png" alt="sad poop emoji" class="poopy">`;
+            title.insertAdjacentHTML('afterend', sadPoop);
             document.querySelector('.description').style.display = 'none';
-            btnReset.textContent = 'Play Again';
+            btnReset.textContent = 'Why Not Try Again?';
             btnReset.addEventListener ('click', () => {
                 document.location.reload(true);
             });

@@ -165,6 +165,7 @@ button {
 #overlay {
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: fixed;
   color: #FFFFFF;
   justify-content: center;
@@ -185,9 +186,17 @@ button {
   margin: 50px;
 }
 
-.such-wow {
-  color: yellow;
-  margin-bottom: 100px;
+
+.poopy {
+  margin: 20px;
+  height: 200px;
+  width: 200px;
+}
+
+.you-win {
+  margin: 20px;
+  height: 120px;
+  width: 250px;
 }
 
 .start {

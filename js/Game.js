@@ -5,8 +5,7 @@
 const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
-const querty = document.getElementById('qwerty');
-
+//const querty = document.getElementById('qwerty');
 
 class Game {
     constructor() {
@@ -35,46 +34,50 @@ class Game {
             return phrases;
     };
     /**
-    * Begins game by selecting a random phrase and displaying it to user
+    * Begins game by selecting a random phrase via getRandomPhrase() and displaying it to user via
+    * addPhraseToDisplay() on the Phrase object.
     */
      startGame() {
         document.getElementById("overlay").style.display = "none";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
-        //showMatchedLetter calls the checkLetter function
+        //startGame calls the handleInteraction method function
         this.handleInteraction();
     }
     
     /**
-    * Selects random phrase from phrases property
+    * Returns a random phrase from phrases property.
     * @return {Object} Phrase object chosen to be used
     */
     getRandomPhrase() {
         const rand = (Math.floor(Math.random(this.phrases.length)*this.phrases.length));
         return this.phrases[rand];
     };
+    /**handleInteraction holds the keyboard event listener, it listens for a keypress and records
+     * a string representing that key.  It then compares the key value string with the string value 
+     * of the qwerty onscreen keyboard.  If there's a match, the letter is disabled, it gets the class
+     * "chosen" and associated key object is passed to the checkLetter method on the Phrase class.  It 
+     * then calls the removeLife() method to see if a life should be removed and checkForWin() to see
+     * if the game is over.
+      */
     handleInteraction() {
+    //qwerty on screen keyboard functionality is commented out, but will work in lieu of player's physical
+    //keyboard.
         // qwerty.addEventListener('click', e => {
-        //     if (e.target.className === 'key') {
-        //         console.log(e.target);
-        //         console.log(e.target.textContent);
-        //         e.target.disabled = true;
-        //         e.target.classList.add('chosen');
-        //         this.activePhrase.checkLetter(e.target);
-        //     }
+        //         if (e.target.className === 'key') {
+        //             console.log(e.target);
+        //             console.log(e.target.textContent);
+        //             e.target.disabled = true;
+        //             e.target.classList.add('chosen');
+        //             this.activePhrase.checkLetter(e.target);
+        //         }
+        //     });
         document.addEventListener('keydown', e => {
-            console.log(e.key);
-            console.log(typeof e.key);
             const keys = document.querySelectorAll('.key');
-            
             for ( let i = 0; i < keys.length; i++ ) {
                 if (e.key === keys[i].textContent) {
-                    console.log(typeof keys[i])
-                    console.log(keys[i]);
                     keys[i].disabled = true;
                     keys[i].classList.add('chosen');
-                    console.log(typeof keys[i]);
-                    console.log(keys[i]); 
                     this.activePhrase.checkLetter(keys[i])
                 }
             }
@@ -83,15 +86,17 @@ class Game {
         });
         
     }
+    /**checkForWin sets the gameState variable based on two criteria - if the amount of in the phrase
+     * @param letterLi is equal to @param showLi, the amount of letters picked during the game.
+     */
+
     checkForWin() {
         const letterLi = document.querySelectorAll('.letter');
         const showLi = document.querySelectorAll('.show');
         if (letterLi.length === showLi.length) {
-            console.log('A Win!');
             gameState = 'win'
             this.gameOver(gameState);
         } else if (missed >= 5) {
-            console.log('A Loss 😢');
             gameState = 'loss'
             this.gameOver(gameState);
         }
@@ -101,14 +106,16 @@ class Game {
      * lost.  If missed is greater than or equal to 1, returned by the checkLetter 
      * method (on the phrase class), the heart image is replaced with another image.
      */
-    
     removeLife() {
         if (missed >= 1) {
-        console.log(missed);
         let hearts = document.querySelectorAll('img');
         hearts[missed - 1].src = 'images/angrypoop.png';
         }
     }
+
+    /**gameOver checks the @param gameState to see if it's a win or not.  If it's win, then the code
+     * for the 'win' overlay is displayed.  Otherwise, the overlay for 'lose is called.
+     */
     gameOver() {
         if (gameState === 'win') {
             overlay.style.display = 'flex';
@@ -136,6 +143,4 @@ class Game {
             });
         }
     }
-
-
 }

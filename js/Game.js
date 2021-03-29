@@ -54,12 +54,29 @@ class Game {
         return this.phrases[rand];
     };
     handleInteraction() {
-        qwerty.addEventListener('click', e => {
-            if (e.target.className === 'key') {
-                console.log(e.target.textContent);
-                e.target.disabled = true;
-                e.target.classList.add('chosen');
-                this.activePhrase.checkLetter(e.target);
+        // qwerty.addEventListener('click', e => {
+        //     if (e.target.className === 'key') {
+        //         console.log(e.target);
+        //         console.log(e.target.textContent);
+        //         e.target.disabled = true;
+        //         e.target.classList.add('chosen');
+        //         this.activePhrase.checkLetter(e.target);
+        //     }
+        document.addEventListener('keydown', e => {
+            console.log(e.key);
+            console.log(typeof e.key);
+            const keys = document.querySelectorAll('.key');
+            
+            for ( let i = 0; i < keys.length; i++ ) {
+                if (e.key === keys[i].textContent) {
+                    console.log(typeof keys[i])
+                    console.log(keys[i]);
+                    keys[i].disabled = true;
+                    keys[i].classList.add('chosen');
+                    console.log(typeof keys[i]);
+                    console.log(keys[i]); 
+                    this.activePhrase.checkLetter(keys[i])
+                }
             }
             this.removeLife()
             this.checkForWin()

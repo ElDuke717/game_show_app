@@ -42,7 +42,7 @@ class Phrase {
      */
     checkLetter(button) {
         const getPhraseArray = game.activePhrase.phrase.split('');
-        
+        console.log(button);
         if (!getPhraseArray.includes(button.textContent)) {
             button.classList.add('wrong');
             button.classList.remove('chosen');

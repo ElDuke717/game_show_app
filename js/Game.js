@@ -21,16 +21,16 @@ class Game {
     createPhrases() {
         const phrases = [
             new Phrase ("Mars landing"),
-            new Phrase ("Buy some DogeCoin"),
+            new Phrase ("Spring is here"),
             new Phrase ("Time to get vaccinated"),
             new Phrase ("Poop emoji"),
             new Phrase ("Vanilla JavaScript"),
-            new Phrase ("Blinded by the light"),
+            new Phrase ("Stimulus checks"),
             new Phrase ("Internet memes"),
             new Phrase ("SpaceX rocket launch"),
-            new Phrase ("Clubhouse app"),
-            new Phrase ("Bernies mittens"),
-            new Phrase ("Dolly Parton"),
+            new Phrase ("Social distancing"),
+            new Phrase ("Pfizer vaccine"),
+            new Phrase ("Electric car"),
             ];
             return phrases;
     };

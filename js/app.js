@@ -11,4 +11,7 @@ btnReset.addEventListener('click', () => {
     game.startGame();
 });
 
-
+window.addEventListener('keydown', e => {
+    const key = document.querySelector('.key')
+    console.log(e.key);
+})

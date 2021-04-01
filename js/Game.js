@@ -3,8 +3,8 @@
  * Game.js */
 
 const overlay = document.querySelector('#overlay');
+/**gameState is initialized here and will be set to 'win' or 'lose' depending on the outcome of the game's logic */
 let gameState;
-const title = document.querySelector('.title');
 
 class Game {
     constructor() {
@@ -79,6 +79,10 @@ class Game {
          */
         if (this.activePhrase.checkLetter(key)) {
             this.activePhrase.showMatchedLetter(key)
+            this.checkForWin()
+            if (gameState === 'win') {
+                this.gameOver()
+            }
           } else {
             this.removeLife(); 
             /**Similar to the above loop, this for loop runs if checkLetter returns false.  It loops over the 
@@ -90,9 +94,8 @@ class Game {
                 }
             }
           }  
-        this.checkForWin()
     }
-    /**checkForWin sets the gameState variable based on two criteria - if the amount of in the phrase
+    /**checkForWin sets the gameState variable to 'win' if the amount of letters in the phrase
      * @param letterLi is equal to @param showLi, the amount of letters picked during the game.
      */
 
@@ -101,27 +104,28 @@ class Game {
         const showLi = document.querySelectorAll('.show');
         if (letterLi.length === showLi.length) {
             gameState = 'win'
-            this.gameOver(gameState);
-        } else if (this.missed >= 5) {
-            gameState = 'loss'
-            this.gameOver(gameState);
         }
-        return this.missed;
     }
     /** @removeLife is called by @handleInteraction and increments the missed variable when called and 
-     * changes the heart icons. If missed is greater than or equal to 1, returned by the checkLetter 
-     * method (on the phrase class), the heart image is replaced with another image.
+     * changes the heart icons. If missed is greater than or equal to 5, then the gameState is set to 
+     * 'lose' and @gameOver() is calledd
      */
     removeLife() {
         this.missed++
         let hearts = document.querySelectorAll('img');
         hearts[this.missed - 1].src = 'images/angrypoop.png';
+        if (this.missed >= 5) {
+            gameState = 'lose'
+            this.gameOver();
+        }
     }
 
-    /**gameOver checks the @param gameState to see if it's a win or not.  If it's win, then the code
-     * for the 'win' overlay is displayed.  Otherwise, the overlay for 'lose is called.
+    /**gameOver is called by either @handleInteraction or @removeLife and checks the @param gameState to 
+     * see if it's a win or not.  If it's win, then the code for the 'win' overlay is displayed.  Otherwise, 
+     * the overlay for 'lose' overlay is displayed.
      */
     gameOver() {
+        const title = document.querySelector('.title');
         if (gameState === 'win') {
             overlay.style.display = 'flex';
             overlay.classList.add('win');
@@ -135,7 +139,7 @@ class Game {
             btnReset.addEventListener ('click', () => {
                 document.location.reload(true);
             });
-        } else {
+        } else if (gameState === 'lose') {
             overlay.style.display = 'flex';
             overlay.classList.add('lose');
             title.textContent = 'You lost'

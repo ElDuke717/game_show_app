@@ -37,7 +37,7 @@ qwerty.addEventListener('click', e => {
 /**This keyboard event listener works the same as the above qwerty, except that it receivess input from 
  * the player's physical keyboard.   It uses the same logic as the qwerty onscreen listener.
  */
-document.addEventListener('keydown', e => {    
+document.addEventListener('keydown', e => {   
     !letterArray.includes(e.key) && game.handleInteraction(e.key);
     !letterArray.includes(e.key) && letterArray.push(e.key);
 });

@@ -7,9 +7,8 @@
  */
 
 const btnReset = document.getElementById('btn__reset');
-//const querty = document.getElementById('qwerty');
 let game;
-
+let letterArray =[];
 
 /**Starts a new game */
 btnReset.addEventListener('click', () => {
@@ -26,20 +25,15 @@ qwerty.addEventListener('click', e => {
 });
 
 //Need to come back and fix the keypress event on this section
-document.addEventListener('keydown', e => {
-    const gamePhraseArray = game.activePhrase.phrase.split('')
-    console.log(gamePhraseArray);
-    console.log(gamePhraseArray.includes(e.key));
-    game.handleInteraction(e.key);
-    console.log(e.key);
-    const keys = document.querySelectorAll('.key');
-    const chosen = document.querySelectorAll('.chosen')
-        console.log(e.key)
-        console.log(chosen);
-        for ( let i = 0; i < keys.length; i++ ) {
-            if (keys[i].textContent === e.key) {
-                keys[i].disabled;                
-            }
-        }
+document.addEventListener('keydown', e => {    
+    /**This logic determines if a key has been pressed already, if not, it passes the letter 
+     * string to handleInteraction on the game class and pushes the letter to letterArray.  
+     * Each letter is then stored to letterArray, so it won't register multiple times.
+     */
+    !letterArray.includes(e.key) ? game.handleInteraction(e.key) : "";
+    letterArray.push(e.key);
+    console.log(letterArray);
+    console.log(letterArray.includes(e.key) ? "yes" : "no");
+    
 });
         

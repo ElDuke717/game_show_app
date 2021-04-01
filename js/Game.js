@@ -5,16 +5,18 @@
 const overlay = document.querySelector('#overlay');
 let gameState;
 const title = document.querySelector('.title');
-//const querty = document.getElementById('qwerty');
 
 class Game {
     constructor() {
+        /**@param {number} missed - keeps track of the wrong letters and is incremented by checkLetter if
+        * a wrong letter is chosen.*/
         this.missed = 0;
+        /**@param {callback} this.createPhrases contains a set of phrases to be chosen*/
         this.phrases = this.createPhrases();
+        /**@param {string} this.activePhrase will hold the phrase chosen at random for the game. */
         this.activePhrase = null;
     }
-    /**
-    * Creates phrases for use in game
+    /**Creates phrases for use in game
     * @return {array} An array of phrases that could be used in the game
     */
     createPhrases() {
@@ -34,8 +36,8 @@ class Game {
             return phrases;
     };
     /**
-    * Begins game by selecting a random phrase via getRandomPhrase() and displaying it to user via
-    * addPhraseToDisplay() on the Phrase object.
+    * Begins game by hiding the game start overlay and then selecting a random phrase via getRandomPhrase() 
+    * and displaying it to user via addPhraseToDisplay() on the Phrase object.
     */
     startGame() {
         document.getElementById("overlay").style.display = "none";
@@ -51,12 +53,12 @@ class Game {
         const rand = (Math.floor(Math.random(this.phrases.length)*this.phrases.length));
         return this.phrases[rand];
     };
-    /**handleInteraction holds the keyboard event listener, it listens for a keypress and records
-     * a string representing that key.  It then compares the key value string with the string value 
-     * of the qwerty onscreen keyboard.  If there's a match, the letter is disabled, it gets the class
-     * "chosen" and associated key object is passed to the checkLetter method on the Phrase class.  It 
-     * then calls the removeLife() method to see if a life should be removed and checkForWin() to see
-     * if the game is over.
+    /**@method handleInteraction receives a letter as a string from the qwerty or keyboard inputs.  It 
+     * then compares the key value string with the string value of the qwerty onscreen keyboard.  If 
+     * there's a match, the letter HTML button item gets the class "chosen" and associated key object 
+     * is passed to the checkLetter method on the Phrase class. It receives a boolen from @checkLetter
+     * and uses this input to call @showMatchedLetter if true and @removeLive and add the classList wrong
+     * if false.  Lastly, it calls @checkForWin to see if the game has ended in a win or loss. 
      * @param (key) - a string passed in from app.js from either the qwerty or keyboard event listeners
       */
     handleInteraction(key) {
@@ -66,12 +68,11 @@ class Game {
          */
         for ( let i = 0; i < keys.length; i++ ) {
             if (keys[i].textContent === key) {
-                keys[i].disabled = true;
                 keys[i].classList.add('chosen');
             }
         }
-        /**This if statement calls the checkletter method on the phrase object and calls showMatchedLetter
-         * if checkedLetter returns true and calls the removeLife method if it's false.  It also initiates the 
+        /**This if statement calls the checkletter method on the phrase object and calls @showMatchedLetter
+         * if @checkedLetter returns true and calls the removeLife method if it's false.  It also initiates the 
          * loop to test if the string key matches the key in the qwerty keyboard, if it does, it adds the "wrong"
          * class to the letter, turning it orange.
          */
@@ -100,22 +101,20 @@ class Game {
         if (letterLi.length === showLi.length) {
             gameState = 'win'
             this.gameOver(gameState);
-        } else if (missed >= 5) {
+        } else if (this.missed >= 5) {
             gameState = 'loss'
             this.gameOver(gameState);
         }
-        return missed;
+        return this.missed;
     }
-    /** removeLife checks for matches.  If a match is made, then no hearts are
-     * lost.  If missed is greater than or equal to 1, returned by the checkLetter 
+    /** @removeLife is called by @handleInteraction and increments the missed variable when called and 
+     * changes the heart icons. If missed is greater than or equal to 1, returned by the checkLetter 
      * method (on the phrase class), the heart image is replaced with another image.
      */
     removeLife() {
-        //if (this.activePhrase.checkLetter()) {
-        missed++
+        this.missed++
         let hearts = document.querySelectorAll('img');
-        hearts[missed - 1].src = 'images/angrypoop.png';
-        //}
+        hearts[this.missed - 1].src = 'images/angrypoop.png';
     }
 
     /**gameOver checks the @param gameState to see if it's a win or not.  If it's win, then the code

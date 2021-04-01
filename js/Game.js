@@ -68,7 +68,8 @@ class Game {
          */
         for ( let i = 0; i < keys.length; i++ ) {
             if (keys[i].textContent === key) {
-                keys[i].classList.add('chosen');
+                keys[i].classList.add('chosen')
+                keys[i].disabled;
             }
         }
         /**This if statement calls the checkletter method on the phrase object and calls @showMatchedLetter

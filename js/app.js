@@ -6,14 +6,19 @@
  * on the Game class.
  */
 const btnReset = document.getElementById('btn__reset');
+
+/**game variable is set so that the game can be initiated. */
 let game;
+
+/**qwerty selects the html buttons in the qwerty keyboard */
+const qwerty = document.getElementById('qwerty')
+
 /**letterArray holds the letters that are the result of qwery onscreen or the physical keyboard */
 let letterArray =[];
 
 /**Starts a new game */
 btnReset.addEventListener('click', () => {
     game = new Game();
-//Does this need to just start with the instantiation of new Game?
     game.startGame();
 });
 

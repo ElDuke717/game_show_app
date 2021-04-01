@@ -2,14 +2,10 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
-// /**
-//  * @param {number} missed - keeps track of the wrong letters and is incremented by checkLetter if
-//  * a wrong letter is chosen.
-//  */
-// let missed = 0;
 
 class Phrase {
     constructor(phrase) {
+        /**@param phrase sets the randomly chosen phrase to lowerCase */
         this.phrase = phrase.toLowerCase();
     }
     /**

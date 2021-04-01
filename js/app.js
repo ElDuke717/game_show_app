@@ -33,7 +33,6 @@ document.addEventListener('keydown', e => {
     !letterArray.includes(e.key) ? game.handleInteraction(e.key) : "";
     letterArray.push(e.key);
     console.log(letterArray);
-    console.log(letterArray.includes(e.key) ? "yes" : "no");
     
 });
         

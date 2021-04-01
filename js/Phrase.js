@@ -41,27 +41,25 @@ class Phrase {
      * in the phrase and adds the class "show" to phrase letters that have had their
      * corresponding keys pressed.  It returns a Boolean.
      */
-    checkLetter(button) {
-        const getPhraseArray = game.activePhrase.phrase.split('');
-        if (!getPhraseArray.includes(button.textContent)) {
-            button.classList.add('wrong');
-            button.classList.remove('chosen');
-            missed++
-        } else {
-            this.showMatchedLetter(button);
-        }
-    } 
+    checkLetter(key) {
+        const gamePhraseArray = game.activePhrase.phrase.split('')
+        let match = null;
+        gamePhraseArray.includes(key) ? match = true : match = false;
+        console.log(match)
+        return match;
+    };
+    
     /**showMatchedLetter method has the keyboard listener built into it that listens
      * for keypresses on the screen qwerty keyboard.  When a key is pressed, the class
      * chosen is added to the target letter.  It then calls the checkLetter method via
      * the match variable - the match is then passed to the removeLife method.
      */
-    showMatchedLetter(button) {
+    showMatchedLetter(key) {
         const letterLi = document.querySelectorAll('.letter');
-        console.log(button.textContent);
+        console.log(key);
         for (let i = 0; i < letterLi.length; i++) {
             let letters = letterLi[i];
-            if (button.textContent === letters.textContent ) {
+            if (key === letters.textContent ) {
                 letters.classList.add('show');
             }
         }  

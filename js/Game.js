@@ -37,12 +37,10 @@ class Game {
     * Begins game by selecting a random phrase via getRandomPhrase() and displaying it to user via
     * addPhraseToDisplay() on the Phrase object.
     */
-     startGame() {
+    startGame() {
         document.getElementById("overlay").style.display = "none";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
-        //startGame calls the handleInteraction method function
-        this.handleInteraction();
     }
     
     /**
@@ -59,32 +57,38 @@ class Game {
      * "chosen" and associated key object is passed to the checkLetter method on the Phrase class.  It 
      * then calls the removeLife() method to see if a life should be removed and checkForWin() to see
      * if the game is over.
+     * @param (key) - a string passed in from app.js from either the qwerty or keyboard event listeners
       */
-    handleInteraction() {
-    //qwerty on screen keyboard functionality is commented out, but will work in lieu of player's physical
-    //keyboard.
-        // qwerty.addEventListener('click', e => {
-        //         if (e.target.className === 'key') {
-        //             console.log(e.target);
-        //             console.log(e.target.textContent);
-        //             e.target.disabled = true;
-        //             e.target.classList.add('chosen');
-        //             this.activePhrase.checkLetter(e.target);
-        //         }
-        //     });
-        document.addEventListener('keydown', e => {
-            const keys = document.querySelectorAll('.key');
+    handleInteraction(key) {
+        const keys = document.querySelectorAll('.key');
+        /**This for loop loops over the keys on the screen and matches the string letter pressed by the 
+         * player to the letters on the on screen keyboard. 
+         */
+        for ( let i = 0; i < keys.length; i++ ) {
+            if (keys[i].textContent === key) {
+                keys[i].disabled = true;
+                keys[i].classList.add('chosen');
+            }
+        }
+        /**This if statement calls the checkletter method on the phrase object and calls showMatchedLetter
+         * if checkedLetter returns true and calls the removeLife method if it's false.  It also initiates the 
+         * loop to test if the string key matches the key in the qwerty keyboard, if it does, it adds the "wrong"
+         * class to the letter, turning it orange.
+         */
+        if (this.activePhrase.checkLetter(key)) {
+            this.activePhrase.showMatchedLetter(key)
+          } else {
+            this.removeLife(); 
+            /**Similar to the above loop, this for loop runs if checkLetter returns false.  It loops over the 
+            * keys on the screen and adds the wrong class to the letter element.
+            */
             for ( let i = 0; i < keys.length; i++ ) {
-                if (e.key === keys[i].textContent) {
-                    keys[i].disabled = true;
-                    keys[i].classList.add('chosen');
-                    this.activePhrase.checkLetter(keys[i])
+                if (keys[i].textContent === key) {
+                    keys[i].classList.add('wrong');
                 }
             }
-            this.removeLife()
-            this.checkForWin()
-        });
-        
+          }  
+        this.checkForWin()
     }
     /**checkForWin sets the gameState variable based on two criteria - if the amount of in the phrase
      * @param letterLi is equal to @param showLi, the amount of letters picked during the game.
@@ -107,10 +111,11 @@ class Game {
      * method (on the phrase class), the heart image is replaced with another image.
      */
     removeLife() {
-        if (missed >= 1) {
+        //if (this.activePhrase.checkLetter()) {
+        missed++
         let hearts = document.querySelectorAll('img');
         hearts[missed - 1].src = 'images/angrypoop.png';
-        }
+        //}
     }
 
     /**gameOver checks the @param gameState to see if it's a win or not.  If it's win, then the code
